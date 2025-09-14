@@ -43,8 +43,6 @@ FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 
 
 
-
-
 CREATE TABLE Creates (
  event_id INT USIGNED NOT NULL AUTO_INCREMENT ,
  user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -71,12 +69,6 @@ CREATE TABLE Scans (
 PRIMARY KEY (ticket_id, user_id),
  FOREIGN KEY (ticket_id) REFERENCES Tickets,
 FOREIGN KEY (user_id) REFERENCES Organizers
-
-
-
-
-
-
 );
 
 
