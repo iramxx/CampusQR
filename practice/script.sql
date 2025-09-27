@@ -1,7 +1,35 @@
 INSERT INTO Users (email, name, password_hash) VALUES
-('taha@gmail.com', 'taha', 'hashedpassword1')
-('ahmed@gmail.com', 'ahmed', 'hashedpassword2')
-('kamron@gmail.com', '', 'hashedpassword3')
+('taha1@mail.com', 'Taha', 'hash1'),
+('ahmed@mail.com', 'Ahmed', 'hash2'),
+('kamron@mail.com', 'Kamron', 'hash3'),
+('sara@mail.com', 'Sara', 'hash4'),
+('ali@mail.com', 'Ali', 'hash5'),
+('fatima@mail.com', 'Fatima', 'hash6'),
+('youssef@mail.com', 'Youssef', 'hash7'),
+('mohammed@mail.com', 'Mohammed', 'hash8'),
+('nour@mail.com', 'Nour', 'hash9'),
+('amina@mail.com', 'Amina', 'hash10'),
+('hassan@mail.com', 'Hassan', 'hash11'),
+('iman@mail.com', 'Iman', 'hash12'),
+('khalid@mail.com', 'Khalid', 'hash13'),
+('salma@mail.com', 'Salma', 'hash14'),
+('omar@mail.com', 'Omar', 'hash15'),
+('yasin@mail.com', 'Yasin', 'hash16'),
+('hanan@mail.com', 'Hanan', 'hash17'),
+('adil@mail.com', 'Adil', 'hash18'),
+('ranya@mail.com', 'Ranya', 'hash19'),
+('karim@mail.com', 'Karim', 'hash20'),
+('layla@mail.com', 'Layla', 'hash21'),
+('reda@mail.com', 'Reda', 'hash22'),
+('nadia@mail.com', 'Nadia', 'hash23'),
+('samir@mail.com', 'Samir', 'hash24'),
+('siham@mail.com', 'Siham', 'hash25'),
+('yara@mail.com', 'Yara', 'hash26'),
+('mehdi@mail.com', 'Mehdi', 'hash27'),
+('aya@mail.com', 'Aya', 'hash28'),
+('zakaria@mail.com', 'Zakaria', 'hash29'),
+('mona@mail.com', 'Mona', 'hash30');
+
 
 INSERT INTO Organizers (user_id, club_name)
 VALUES (2, 'Math Societe');
