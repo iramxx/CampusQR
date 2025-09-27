@@ -32,7 +32,12 @@ INSERT INTO Users (email, name, password_hash) VALUES
 
 
 INSERT INTO Organizers (user_id, club_name)
-VALUES (2, 'Math Societe');
+VALUES
+  (2, 'Math Societe'),
+  (8, 'Chess Club'),
+  (10, 'Debate Club'),
+  (29, 'Photography Club');
+
 
 INSERT INTO Attendee (user_id, student_id)
 VALUES 
