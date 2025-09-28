@@ -19,3 +19,7 @@ JOIN Events AS e ON rt.event_id = e.event_id;
 SELECT e.event_id, e.title, e.event_date, w.type
 FROM Event e
 JOIN Workshop w ON e.event_id = w.event_id;
+
+-- How many users to we have
+SELECT COUNT(*) AS total_users
+FROM User;
