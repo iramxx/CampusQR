@@ -34,3 +34,8 @@ SELECT u.name, u.email
 FROM Attendee AS a
 JOIN Users AS u ON a.user_id = u.user_id
 WHERE a.user_id NOT IN (SELECT user_id FROM Register_to)
+
+-- Print all users in alphabetic order
+SELECT user_id, name, email
+FROM Users
+ORDER BY name ASC;
