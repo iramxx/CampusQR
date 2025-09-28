@@ -43,7 +43,10 @@ SELECT user_id, name, email
 FROM Users
 ORDER BY name ASC;
 
+-- counts how many user with differant status there exits
+
 SELECT tickets.status, COUNT(*)
 FROM tickets
 GROUP BY tickets.status
+
 
