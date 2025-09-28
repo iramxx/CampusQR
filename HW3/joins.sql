@@ -23,3 +23,9 @@ JOIN Workshop w ON e.event_id = w.event_id;
 -- How many users to we have
 SELECT COUNT(*) AS total_users
 FROM User;
+
+-- Find all events after specific date
+SELECT title, event_date,capacity
+FROM Events
+WHERE event_date > '2025-01-01 00:00:00';
+
