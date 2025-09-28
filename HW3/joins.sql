@@ -23,3 +23,14 @@ JOIN Workshop w ON e.event_id = w.event_id;
 -- How many users to we have
 SELECT COUNT(*) AS total_users
 FROM User;
+
+-- Find all events after specific date
+SELECT title, event_date,capacity
+FROM Events
+WHERE event_date > '2025-01-01 00:00:00';
+
+-- Attendees who are not registered to any events
+SELECT u.name, u.email
+FROM Attendee AS a
+JOIN Users AS u ON a.user_id = u.user_id
+WHERE a.user_id NOT IN (SELECT user_id FROM Register_to)
