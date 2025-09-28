@@ -13,3 +13,9 @@ FROM Register_to AS rt
 JOIN Users AS u ON rt.user_id = u.user_id
 JOIN Events AS e ON rt.event_id = e.event_id;
 
+
+-- find the events that are workshops
+
+SELECT e.event_id, e.title, e.event_date, w.type
+FROM Event e
+JOIN Workshop w ON e.event_id = w.event_id;
