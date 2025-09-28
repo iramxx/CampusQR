@@ -55,3 +55,24 @@ VALUES (1, 2);
 -- Register Taha and kamron to the event
 INSERT INTO Register_to (event_id, user_id)
 VALUES (1, 1), (1, 3);
+
+INSERT INTO Ticket (ticket_id, status, qr_code_data)
+VALUES 
+  (1, 1, 'QR001'),   -- Taha’s ticket, active
+  (2, 1, 'QR002');   -- Kamron’s ticket, active
+
+
+INSERT INTO Student_ticket (ticket_id, student_id, booking_date)
+VALUES
+  (1, '30008731', '2025-09-28'),
+  (2, '30008742', '2025-09-28');
+
+
+INSERT INTO Ticket (ticket_id, status, qr_code_data)
+VALUES (3, 0, 'QR003');
+
+INSERT INTO Guest_ticket (ticket_id, booking_date, name_and_last_name)
+VALUES (3, '2025-09-28', 'John Doe')
+        (4, '2025-09-27', 'Michael bouma');
+
+
