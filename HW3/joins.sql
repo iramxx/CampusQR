@@ -49,4 +49,3 @@ SELECT tickets.status, COUNT(*)
 FROM tickets
 GROUP BY tickets.status
 
-
