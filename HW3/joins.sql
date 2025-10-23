@@ -27,6 +27,7 @@ FROM User;
 -- How many tickets to we have
 SELECT COUNT(*) AS total_tickets
 FROM Ticket;
+
 -- Find all events after specific date
 SELECT title, event_date,capacity
 FROM Events
