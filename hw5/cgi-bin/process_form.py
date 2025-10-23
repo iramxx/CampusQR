@@ -1,7 +1,5 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
 import cgitb
-cgitb.enable() # ОБЯЗАТЕЛЬНО для отладки
+cgitb.enable() 
 
 import cgi
 import mysql.connector
@@ -10,11 +8,9 @@ import hashlib
 import os
 import uuid
 
-# --- КОНФИГУРАЦИЯ ---
 db_config = { 'host': 'clabsql', 'database': 'db_kjurabaev', 'user': 'kjurabaev', 'password': '5tr8zjbrDq1GchfY' }
 username = os.environ.get('USER', 'kjurabaev')
 
-# --- ФУНКЦИИ-ПОМОЩНИКИ ---
 def print_feedback_page(success, message):
     print("Content-Type: text/html\n")
     print(f"<html><head><title>Feedback</title><link rel='stylesheet' href='/~{username}/auth-style.css'></head><body>")
@@ -23,7 +19,6 @@ def print_feedback_page(success, message):
     print(f'<a href="/~{username}/maintenance.html" class="back-link">← Back to Maintenance</a>')
     print("</div></div></body></html>")
 
-# --- ОСНОВНАЯ ЛОГИКА ---
 def main():
     form = cgi.FieldStorage()
     action = form.getvalue('action')
@@ -33,7 +28,6 @@ def main():
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
-        # --- ОБРАБОТКА СУЩНОСТЕЙ ---
         if action == 'add_user':
             password_hash = hashlib.sha256(form.getvalue('password').encode('utf-8')).hexdigest()
             cursor.execute("INSERT INTO Users (name, email, password_hash) VALUES (%s, %s, %s)",
@@ -64,13 +58,10 @@ def main():
             qr_code = str(uuid.uuid4())
             cursor.execute("INSERT INTO Tickets (status, qr_code_data) VALUES ('issued', %s)", (qr_code,))
             ticket_id = cursor.lastrowid
-            # В зависимости от твоей SQL схемы, ты можешь вставлять в StudentTicket или GuestTicket
-            # Для примера, вставляем в StudentTicket
             cursor.execute("INSERT INTO StudentTicket (user_id, ticket_id, booking_date) VALUES (%s, %s, NOW())",
                            (form.getvalue('user_id'), ticket_id))
             msg = f"Ticket created with ID {ticket_id}."
 
-        # --- ОБРАБОТКА СВЯЗЕЙ ---
         elif action == 'link_creates':
             cursor.execute("INSERT INTO Creates (user_id, event_id) VALUES (%s, %s)",
                            (form.getvalue('user_id'), form.getvalue('event_id')))
