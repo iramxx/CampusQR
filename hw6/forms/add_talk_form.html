@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><title>Add Talk</title><link rel="stylesheet" href="../auth-style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="form-container">
+            <h2>Add New Talk Event</h2>
+                <form action="../cgi-bin/process_form.py?action=add_talk" method="POST"></form>
+                <div class="form-group"><input type="text" name="title" required placeholder="Talk Title"></div>
+                <div class="form-group"><input type="text" name="speaker_name" required placeholder="Speaker's Name"></div>
+                <div class="form-group"><label>Date and Time</label><input type="datetime-local" name="event_date" required></div>
+                <div class="form-group"><textarea name="description" required placeholder="Description"></textarea></div>
+                <div class="form-group"><input type="number" name="capacity" required placeholder="Capacity"></div>
+                <button type="submit" class="btn-submit">Add Talk</button>
+            </form>
+            <a href="../maintenance.html" class="back-link">← Back to Maintenance</a>
+        </div>
+    </div>
+</body>
+</html>

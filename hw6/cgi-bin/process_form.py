@@ -1,5 +1,7 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 import cgitb
-cgitb.enable() 
+cgitb.enable()
 
 import cgi
 import mysql.connector
@@ -8,9 +10,12 @@ import hashlib
 import os
 import uuid
 
-db_config = { 'host': 'clabsql', 'database': 'db_kjurabaev', 'user': 'kjurabaev', 'password': '5tr8zjbrDq1GchfY' }
+# --- КОНФИГУРАЦИЯ (Вставь свой пароль!) ---
+db_config = { 'host': 'localhost', 'database': 'db_kjurabaev', 'user': 'kjurabaev', 'password': '5tr8zjbrDq1GchfY' }
 username = os.environ.get('USER', 'kjurabaev')
 
+
+# --- ФУНКЦИИ-ПОМОЩНИКИ ---
 def print_feedback_page(success, message):
     print("Content-Type: text/html\n")
     print(f"<html><head><title>Feedback</title><link rel='stylesheet' href='/~{username}/auth-style.css'></head><body>")
@@ -19,15 +24,17 @@ def print_feedback_page(success, message):
     print(f'<a href="/~{username}/maintenance.html" class="back-link">← Back to Maintenance</a>')
     print("</div></div></body></html>")
 
+# --- ОСНОВНАЯ ЛОГИКА ---
 def main():
-    form = cgi.FieldStorage()
-    action = form.getvalue('action')
-    msg = ""
-    
     try:
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
+        
+        form = cgi.FieldStorage()
+        action = form.getvalue('action')
+        msg = ""
 
+        # --- ОБРАБОТКА СУЩНОСТЕЙ ---
         if action == 'add_user':
             password_hash = hashlib.sha256(form.getvalue('password').encode('utf-8')).hexdigest()
             cursor.execute("INSERT INTO Users (name, email, password_hash) VALUES (%s, %s, %s)",
@@ -62,6 +69,7 @@ def main():
                            (form.getvalue('user_id'), ticket_id))
             msg = f"Ticket created with ID {ticket_id}."
 
+        # --- ОБРАБОТКА СВЯЗЕЙ ---
         elif action == 'link_creates':
             cursor.execute("INSERT INTO Creates (user_id, event_id) VALUES (%s, %s)",
                            (form.getvalue('user_id'), form.getvalue('event_id')))
@@ -85,11 +93,14 @@ def main():
         conn.commit()
         print_feedback_page(True, msg)
 
-    except (Error, ValueError, TypeError) as e:
-        if "Duplicate entry" in str(e):
-            print_feedback_page(False, "This link or role already exists.")
-        else:
-            print_feedback_page(False, str(e))
+    except Exception as e:
+        # Если что-то пойдет не так, cgitb должен показать ошибку
+        # Но на всякий случай, добавим свой вывод
+        print("Content-Type: text/html\n")
+        print("<html><body><h1>Critical Script Error in process_form.py</h1>")
+        print(f"<p>A critical error occurred that prevented the script from running:</p><pre>{e}</pre>")
+        print("</body></html>")
+
     finally:
         if 'conn' in locals() and conn.is_connected():
             cursor.close()

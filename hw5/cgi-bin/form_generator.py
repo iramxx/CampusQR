@@ -1,18 +1,14 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
 import cgitb
-cgitb.enable()
+cgitb.enable() # ОБЯЗАТЕЛЬНО для отладки
 
 import cgi 
 import mysql.connector
 from mysql.connector import Error
 import os
 
-# --- КОНФИГУРАЦИЯ ---
 db_config = { 'host': 'clabsql', 'database': 'db_kjurabaev', 'user': 'kjurabaev', 'password': '5tr8zjbrDq1GchfY' }
 username = os.environ.get('USER', 'kjurabaev')
 
-# --- ФУНКЦИИ-ПОМОЩНИКИ ---
 def print_html_header(title):
     print("Content-Type: text/html\n")
     print(f"<html><head><title>{title}</title><link rel='stylesheet' href='/~{username}/auth-style.css'></head><body>")
@@ -25,14 +21,12 @@ def get_select_options(cursor, query):
     cursor.execute(query)
     items = cursor.fetchall()
     options = ""
-
+    # cursor.fetchall() возвращает кортежи (tuples), доступ к элементам по индексу item[0], item[1]
     for item in items:
         options += f"<option value='{item[0]}'>{item[1]}</option>\n"
     return options
 
-# --- ОСНОВНАЯ ЛОГИКА ---
 def main():
-    # Этот блок try/except нужен, чтобы отловить любые ошибки ДО подключения к БД
     try:
         form_data = cgi.FieldStorage()
         form_type = form_data.getvalue('form')
@@ -40,9 +34,8 @@ def main():
         print_html_header("Critical Error")
         print(f"<p>The script failed before it could run properly. Error: {e}</p>")
         print_html_footer()
-        return # Прерываем выполнение, если не можем прочитать форму
+        return 
 
-    # Этот блок try/except для работы с базой данных
     try:
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
@@ -76,7 +69,6 @@ def main():
             options = get_select_options(cursor, "SELECT user_id, name FROM Users")
             print('<form action="process_form.py?action=add_ticket" method="POST">')
             print(f'<div class="form-group"><label>Assign ticket to User:</label><select name="user_id" class="form-group" style="width:100%; padding:15px;">{options}</select></div>')
-            # Для Guest Ticket можно было бы добавить отдельные поля, но для простоты мы их опускаем
             print('<button type="submit" class="btn-submit">Create Ticket</button></form>')
         
         elif form_type == 'link_creates':
