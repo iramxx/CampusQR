@@ -43,3 +43,10 @@ WHERE a.user_id NOT IN (SELECT user_id FROM Register_to)
 SELECT user_id, name, email
 FROM Users
 ORDER BY name ASC;
+
+-- counts how many user with differant status there exits
+
+SELECT tickets.status, COUNT(*)
+FROM tickets
+GROUP BY tickets.status
+
