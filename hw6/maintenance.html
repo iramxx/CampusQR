@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Maintenance</title>
+    <link rel="stylesheet" href="auth-style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="role-selection-wrapper" style="width: 800px;">
+            <h1>Data Maintenance</h1>
+            <p>Follow the steps to add data correctly.</p>
+            
+            <div style="display: flex; justify-content: space-around; text-align: left;">
+                <div>
+                    <h2>Step 1: Create Base Objects (6)</h2>
+                    <ul>
+                        <li><a href="cgi-bin/form_generator.py?form=add_user">1. Add User</a></li>
+                        <li><a href="forms/add_talk_form.html">2. Add Talk Event</a></li>
+                        <li><a href="forms/add_workshop_form.html">3. Add Workshop Event</a></li>
+                        <hr>
+                        <li><a href="cgi-bin/form_generator.py?form=add_organizer">4. Create Organizer Profile</a></li>
+                        <li><a href="cgi-bin/form_generator.py?form=add_attendee">5. Create Attendee Profile</a></li>
+                        <li><a href="cgi-bin/form_generator.py?form=add_ticket">6. Create Student/Guest Ticket</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h2>Step 2: Create Links (3)</h2>
+                    <ul>
+                        <li><a href="cgi-bin/form_generator.py?form=link_creates">1. Link Organizer to Event (Creates)</a></li>
+                        <li><a href="cgi-bin/form_generator.py?form=link_register_to">2. Register Attendee for Event (Register_to)</a></li>
+                        <li><a href="cgi-bin/form_generator.py?form=link_scans">3. Scan a Ticket</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

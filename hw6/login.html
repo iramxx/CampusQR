@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register - The Campus QR</title>
+    <link rel="stylesheet" href="auth-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="form-container">
+            <h2 id="form-title">Login</h2>
+            <div class="tabs">
+                <button id="login-tab" class="tab-btn active">Login</button>
+                <button id="register-tab" class="tab-btn">Register</button>
+            </div>
+            <form id="auth-form">
+                <div class="form-group" id="name-field" style="display: none;">
+                    <input type="text" id="name" name="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" required placeholder="Your Password">
+                </div>
+                <button type="submit" class="btn-submit">Continue</button>
+            </form>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginTab = document.getElementById('login-tab');
+            const registerTab = document.getElementById('register-tab');
+            const nameField = document.getElementById('name-field');
+            const formTitle = document.getElementById('form-title');
+            const authForm = document.getElementById('auth-form');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            let userType = urlParams.get('type') || 'User';
+            userType = userType.charAt(0).toUpperCase() + userType.slice(1);
+
+            formTitle.innerText = `${userType} Login`;
+
+            registerTab.addEventListener('click', () => {
+                loginTab.classList.remove('active');
+                registerTab.classList.add('active');
+                nameField.style.display = 'block';
+                formTitle.innerText = `${userType} Registration`;
+            });
+
+            loginTab.addEventListener('click', () => {
+                registerTab.classList.remove('active');
+                loginTab.classList.add('active');
+                nameField.style.display = 'none';
+                formTitle.innerText = `${userType} Login`;
+            });
+
+            authForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Form submitted! (Backend connection is needed)');
+            });
+        });
+    </script>
+</body>
+</html>
