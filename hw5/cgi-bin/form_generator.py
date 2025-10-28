@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import cgitb
-cgitb.enable() # ОБЯЗАТЕЛЬНО для отладки
+cgitb.enable()
 
-import cgi  # <-- ВОТ ИСПРАВЛЕНИЕ! ЭТА СТРОКА БЫЛА ПРОПУЩЕНА.
+import cgi 
 import mysql.connector
 from mysql.connector import Error
 import os
@@ -25,7 +25,7 @@ def get_select_options(cursor, query):
     cursor.execute(query)
     items = cursor.fetchall()
     options = ""
-    # cursor.fetchall() возвращает кортежи (tuples), доступ к элементам по индексу item[0], item[1]
+
     for item in items:
         options += f"<option value='{item[0]}'>{item[1]}</option>\n"
     return options
