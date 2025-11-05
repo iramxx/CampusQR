@@ -1,0 +1,451 @@
+/* Global Styles & Variables  */
+:root {
+    --dark-blue: #0f4c6e;
+    --light-blue: #17a2e2;
+    --text-color: #333;
+    --light-gray: #f8f9fa;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--dark-blue);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--light-blue);
+    border-radius: 2px;
+}
+
+.content-section {
+    padding: 80px 0;
+}
+
+.alt-bg {
+    background-color: var(--light-gray);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--light-blue);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn:hover {
+    background: var(--dark-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Disclaimer Modal */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+.modal-container.modal-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* scale effect when hiding */
+.modal-container.modal-hidden .modal {
+    transform: scale(0.9);
+}
+
+.modal {
+    background: var(--white);
+    padding: 30px 40px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: var(--shadow);
+    text-align: left;
+    position: relative;
+}
+
+.modal h3 {
+    color: var(--dark-blue);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.modal pre {
+    white-space: pre-wrap;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+    max-height: 50vh;
+    overflow-y: auto;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.modal-close-btn {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 25px;
+    background: var(--light-blue);
+    color: var(--white);
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.modal-close-btn:hover {
+    background: var(--dark-blue);
+}
+
+/* Header */
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 15px 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+#main-header .btn-start {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-left: 15px;
+}
+
+#main-header.scrolled {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #eee;
+}
+
+#main-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+}
+
+#main-header nav ul {
+    display: flex;
+    list-style: none;
+}
+
+#main-header nav ul li a {
+    color: var(--dark-blue);
+    text-decoration: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.3s;
+}
+
+#main-header nav ul li a:hover {
+    color: var(--light-blue);
+}
+
+#main-header nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--light-blue);
+    transition: width 0.3s ease;
+}
+
+#main-header nav ul li a:hover::after {
+    width: 60%;
+}
+
+
+/* Hero Section */
+#hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--dark-blue), var(--light-blue));
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+/*  Mission Section */
+.mission-content {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.mission-text {
+    flex: 1;
+}
+
+.mission-text p {
+    margin-bottom: 1rem;
+}
+
+.mission-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.mission-logo-bg {
+    width: 80%;
+    opacity: 0.1;
+    transform: rotate(-15deg);
+}
+
+
+/* About Us Section */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.team-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.team-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid var(--light-blue);
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.team-card h3 {
+    font-size: 1.5rem;
+    color: var(--dark-blue);
+    margin-bottom: 5px;
+}
+
+.team-card p {
+    color: var(--light-blue);
+    font-weight: 600;
+}
+
+/* Contact Section  */
+.subtitle {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 50px auto;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.contact-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 4px solid var(--light-blue);
+}
+
+.contact-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.contact-card h3 {
+    font-size: 1.5rem;
+    color: var(--dark-blue);
+    margin-bottom: 5px;
+}
+
+.contact-card .role {
+    font-style: italic;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.contact-link {
+    display: block;
+    margin: 10px auto;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.contact-link:hover {
+    color: var(--light-blue);
+    text-decoration: underline;
+}
+
+
+/* Footer  */
+#main-footer {
+    background: var(--dark-blue);
+    color: var(--white);
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.footer-logo {
+    height: 60px;
+    margin-bottom: 15px;
+    filter: brightness(0) invert(1);
+}
+
+/* Responsive Design  */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+
+    #main-header nav ul {
+        display: none; 
+    }
+
+    .mission-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .mission-logo-bg {
+        width: 50%;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .modal {
+        padding: 20px;
+    }
+}
