@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-# ========= 1. Paste the full log text here =========
 text = """
 
 
@@ -74,15 +73,14 @@ text = """
 
 """
 
-# ========= 2. Parse Access Log Section =========
-# --- Page access frequency ---
+# Page access frequency
 freq_pattern = re.compile(r'- ([^\:]+): (\d+) times')
 freq_data = freq_pattern.findall(text)
 df_freq = pd.DataFrame(freq_data, columns=['Page', 'Count'])
 df_freq['Count'] = df_freq['Count'].astype(int)
 df_freq = df_freq.sort_values('Count', ascending=False)
 
-# --- Access timeline entries ---
+#Access timeline entries
 timeline_pattern = re.compile(
     r'Time: ([\d\-: ]+) \| IP: ([\d\.]+) \| Page: ([^|]+) \| Browser: (.+)'
 )
@@ -91,33 +89,33 @@ df_time = pd.DataFrame(timeline_data, columns=['Time', 'IP', 'Page', 'Browser'])
 if not df_time.empty:
     df_time['Time'] = pd.to_datetime(df_time['Time'], errors='coerce')
 
-# ========= 3. Parse Error Log Section =========
+#Parse Error Log Section
 error_section_match = re.search(r'--- ERROR LOG ANALYSIS ---([\s\S]*)', text)
 error_lines = []
 if error_section_match:
     error_section = error_section_match.group(1)
     error_lines = [line.strip('- ').strip() for line in error_section.splitlines() if line.strip()]
-    # Filter meaningful error lines (ignore "no error" text)
+
     error_lines = [e for e in error_lines if not e.lower().startswith("no error")]
 
-# ========= 4. Save CSVs =========
+#Save CSVs
 df_freq.to_csv("page_frequency.csv", index=False)
 df_time.to_csv("access_timeline.csv", index=False)
-print("✅ Saved: page_frequency.csv, access_timeline.csv")
+print(" Saved: page_frequency.csv, access_timeline.csv")
 
 if error_lines:
     df_err = pd.DataFrame(error_lines, columns=["Error"])
     df_err.to_csv("error_log.csv", index=False)
-    print("✅ Saved: error_log.csv")
+    print("Saved: error_log.csv")
 else:
     df_err = pd.DataFrame(columns=["Error"])
     df_err.to_csv("error_log.csv", index=False)
-    print("✅ Saved: empty error_log.csv (no errors)")
+    print(" Saved: empty error_log.csv (no errors)")
 
-# ========= 5. Create Visual Diagrams =========
+#Create Visual Diagrams
 plt.style.use('seaborn-v0_8-whitegrid')
 
-# --- Page Frequency Chart ---
+#Page Frequency Chart
 plt.figure(figsize=(10, 6))
 plt.barh(df_freq['Page'], df_freq['Count'], color='steelblue')
 plt.title("Page Access Frequency")
@@ -127,9 +125,9 @@ plt.gca().invert_yaxis()
 plt.tight_layout()
 plt.savefig("page_frequency_chart.png")
 plt.close()
-print("✅ Saved: page_frequency_chart.png")
+print("Saved: page_frequency_chart.png")
 
-# --- Access Timeline Chart ---
+#Access Timeline Chart
 if not df_time.empty:
     df_time.set_index('Time', inplace=True)
     df_time.resample('1T').size().plot(kind='line', figsize=(8, 4), color='orange')
@@ -147,9 +145,9 @@ plt.savefig("timeline_chart.png")
 plt.close()
 print("✅ Saved: timeline_chart.png")
 
-# --- Error Charts ---
+#Error Charts
 if not df_err.empty:
-    # Frequency of each error message
+
     error_counts = df_err["Error"].value_counts()
     # Error occurrences over time (if any timestamp found)
     time_pattern = re.compile(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})')
@@ -163,7 +161,7 @@ else:
     error_counts = pd.Series(dtype=int)
     df_time_err = pd.DataFrame(columns=["Time"])
 
-# --- Error Frequency Chart ---
+#Error Frequency Chart
 plt.figure(figsize=(8, 4))
 if not error_counts.empty:
     error_counts.plot(kind='bar', color='lightcoral')
@@ -175,9 +173,9 @@ plt.ylabel("Occurrences")
 plt.tight_layout()
 plt.savefig("error_frequency_chart.png")
 plt.close()
-print("✅ Saved: error_frequency_chart.png")
+print("Saved: error_frequency_chart.png")
 
-# --- Error Timeline Chart ---
+# Error Timeline Chart
 plt.figure(figsize=(8, 4))
 if not df_time_err.empty:
     df_time_err.set_index("Time").resample("1H").size().plot(kind="line", color='red')
@@ -189,6 +187,6 @@ plt.ylabel("Number of Errors")
 plt.tight_layout()
 plt.savefig("error_timeline_chart.png")
 plt.close()
-print("✅ Saved: error_timeline_chart.png")
+print("Saved: error_timeline_chart.png")
 
-print("\n🎯 All analysis completed successfully!")
+print("\nAll analysis completed successfully!")
