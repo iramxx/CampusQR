@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+#text that we got from log_analyzer.py"
 text = """
 
 
@@ -143,7 +144,7 @@ else:
 plt.tight_layout()
 plt.savefig("timeline_chart.png")
 plt.close()
-print("✅ Saved: timeline_chart.png")
+print(" Saved: timeline_chart.png")
 
 #Error Charts
 if not df_err.empty:
