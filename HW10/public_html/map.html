@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Location</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <link rel="stylesheet" href="auth-style.css">
+    <style>
+        #map { 
+            height: 500px; 
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="role-selection-wrapper" style="width: 80%;">
+            <h1>Your Approximate Location</h1>
+            <p>Based on your IP address, this is your estimated region.</p>
+            
+            <div id="map"></div>
+            
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        $.getJSON("cgi-bin/get_location.py", function(data) {
+            
+            var map = L.map('map').setView([data.lat, data.lon], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            var marker = L.marker([data.lat, data.lon]).addTo(map);
+            
+            var popupText = "<b>Your IP Address:</b> " + data.ip;
+            if (data.city) {
+                popupText += "<br><b>City:</b> " + data.city;
+            }
+            if (data.error) {
+                popupText += "<br><small style='color:red;'>" + data.error + "</small>";
+            }
+
+            marker.bindPopup(popupText).openPopup();
+        });
+    });
+    </script>
+
+</body>
+</html>
